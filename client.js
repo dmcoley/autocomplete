@@ -21,7 +21,6 @@ $.getScript('trie.js', function()
                 wordRanks[word] = rank;
                 trie.add(word);
               }
-              wiktionary = wiktionary;
           }
       });
   }
@@ -53,5 +52,3 @@ $.getScript('trie.js', function()
   $("#inputBox").keyup(function() { keyup(); });
   $("#inputBox").keydown(function() { keydown(); })
 });
-
-
