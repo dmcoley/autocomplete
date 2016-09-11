@@ -53,5 +53,3 @@ $.getScript('trie.js', function()
   $("#inputBox").keyup(function() { keyup(); });
   $("#inputBox").keydown(function() { keydown(); })
 });
-
-
