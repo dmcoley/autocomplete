@@ -52,11 +52,6 @@ $.getScript('trie.js', function()
   readText();
   $("#inputBox").keyup(function() { keyup(); });
   $("#inputBox").keydown(function() { keydown(); })
-  $$("list").addEventListener('click', function(e) {
-    if (e.target.tagName === 'LI'){
-      console.log(e.target);
-    }
-  }); 
 });
 
 
