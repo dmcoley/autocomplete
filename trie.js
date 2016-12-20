@@ -13,18 +13,42 @@ function Trie() {
 
 /* Inserts the given word into the Trie */
 Trie.prototype.add = function(word) {
-  traverse(this.root, word, true);
+  var curr = this.root;
+  for (var i = 0; i < word.length; i++) {
+    var index = word.charAt(i).charCodeAt(0) - 'a'.charCodeAt(0);
+    if (!curr.children[index]) {
+      curr.children[index] = new Node();
+    }
+    curr = curr.children[index];
+  }
+  curr.isWord = true;
 }
 
 /* Returns true iff the given word is in the Trie */
 Trie.prototype.search = function(word) {
-  return traverse(this.root, word, false);
+  var curr = this.root;
+  for (var i = 0; i < word.length; i++) {
+    var index = word.charAt(i).charCodeAt(0) - 'a'.charCodeAt(0);
+    if (!curr.children[index]) {
+      return false;
+    }
+    curr = curr.children[index];
+  }
+  return curr.isWord;
 }
 
 /* Returns true iff there is any word in the 
    Trie that starts with the given prefix */
 Trie.prototype.startsWith = function(prefix) {
-  return traverse(this.root, prefix, false);
+  var curr = this.root;
+  for (var i = 0; i < prefix.length; i++) {
+    var index = prefix.charAt(i).charCodeAt(0) - 'a'.charCodeAt(0);
+    if (!curr.children[index]) {
+      return false;
+    }
+    curr = curr.children[index];
+  }
+  return true;
 }
 
 /* Returns an array of all words in the Trie
@@ -57,26 +81,4 @@ var findWords = function(curr, words, currWord) {
       }
     }
   }
-}
-
-/* Traverses the Trie with the given root Node
-   and adds Nodes or returns different boolean 
-   values dependent on the create flag's value */
-var traverse = function(root, word, create) {
-  var curr = root;
-  for (var i = 0; i < word.length; i++) {
-    var index = word.charAt(i).charCodeAt(0) - 'a'.charCodeAt(0);
-    if (!curr.children[index]) {
-      if (create) {
-        curr.children[index] = new Node();
-      } else {
-        return false;
-      }
-    }
-    curr = curr.children[index];
-  }
-  if (create) {
-    curr.isWord = true;
-  }
-  return curr.isWord;
 }
